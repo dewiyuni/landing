@@ -23,9 +23,9 @@
         <h1 class="text-xl font-bold text-amber-600">B Bakery</h1>
         <div class="space-x-6 hidden md:block text-amber-500">
             <a href="#home" class="hover:text-white">Home</a>
-            <a href="#produk" class="hover:text-white">Produk</a>
             <a href="#about" class="hover:text-white">About</a>
-            <a href="#contact" class="hover:text-white">Contact</a>
+            <a href="#produk" class="hover:text-white">Produk</a>
+            <a href="#testimoni" class="hover:text-white">Testimoni</a>
         </div>
         <button onclick="toggleCart()" class="bg-amber-500 text-white px-4 py-2 rounded">
             🛒 Cart (<span id="cart-count">0</span>)

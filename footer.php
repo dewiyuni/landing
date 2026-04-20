@@ -1,19 +1,44 @@
-<!-- FOOTER -->
-<footer id="contact" class="bg-white py-10 text-center text-gray-600">
-    <p>📍 Jl. Bakery No. 123</p>
-    <p>📱 Instagram: @sweetbakery</p>
-    <p>⏰ 07.00 - 20.00</p>
+<!-- FOOTER TRANSPARAN CLEAN GHOST -->
+<footer class="bg-white/10 backdrop-blur-lg border-t border-white/20 py-12 px-8">
+    <div class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8">
+
+        <!-- Bagian Kiri: Branding (Dikasih sedikit jarak antar huruf biar mewah) -->
+        <div class="text-center md:text-left">
+            <h3 class="text-xl font-extrabold text-gray-800 tracking-tight">IT Bakery 🥐</h3>
+            <p class="text-[10px] uppercase tracking-widest text-gray-500 mt-1">Baking code • Serving happiness</p>
+        </div>
+
+        <!-- Bagian Tengah: Kontak (Pakai icon yang lebih rapi) -->
+        <div class="flex flex-wrap justify-center gap-8 text-sm text-gray-600 font-medium">
+            <div class="flex items-center gap-2 hover:text-amber-600 transition-colors cursor-default">
+                <span>📍</span> Jakarta
+            </div>
+            <div class="flex items-center gap-2 hover:text-amber-600 transition-colors cursor-default">
+                <span>📱</span> @itbakery.id
+            </div>
+            <div class="flex items-center gap-2 hover:text-amber-600 transition-colors cursor-default">
+                <span>⏰</span> 07:00 - 21:00
+            </div>
+        </div>
+
+        <!-- Bagian Kanan: Copyright -->
+        <div class="text-[11px] text-gray-400 font-light">
+            &copy; 2024 IT Bakery x <span class="hover:text-amber-500 transition-colors cursor-pointer">@fdweb.id</span>
+        </div>
+
+    </div>
 </footer>
+
 
 <div id="overlay" onclick="toggleCart()" class="fixed inset-0 bg-black/40 hidden"></div>
 <!-- CART -->
 <div id="cart"
-    class="fixed right-0 top-16 w-80 h-[calc(100%-4rem)] bg-white shadow-lg p-5 transform translate-x-full transition duration-300 z-50">
-    <h2 class="text-xl font-bold mb-4">Keranjang</h2>
+    class="fixed right-0 top-0 w-80 h-screen bg-white/20 backdrop-blur-xl border-l border-white/20 shadow-2xl p-6 pt-24 transform translate-x-full transition-transform duration-500 z-50">
 
+    <h2 class="text-2xl font-bold text-grey-800 text-white mb-5">Keranjang Roti 🥐</h2>
     <ul id="cart-items" class="space-y-2"></ul>
 
-    <p class="mt-4 font-bold">Total: Rp <span id="total">0</span></p>
+    <p class="mt-4 font-bold text-white">Total: Rp <span id="total">0</span></p>
 
     <button onclick="checkout()" class="mt-4 w-full bg-green-500 text-white py-2 rounded">
         Checkout WA
