@@ -1,0 +1,490 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>BBakery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      body {
+        font-family: "Poppins", sans-serif;
+      }
+    </style>
+  </head>
+
+  <body class="bg-[#fffaf5] text-gray-800">
+    <!-- NAVBAR -->
+    <nav
+      class="flex justify-between items-center px-6 md:px-12 py-4 bg-neutral-900/80 backdrop-blur-md border-b border-white/10 shadow-md fixed w-full top-0 z-50"
+    >
+      <h1 class="text-2xl font-bold text-amber-500">Jaza Bakery</h1>
+
+      <!-- MENU DESKTOP -->
+      <div
+        class="hidden md:flex items-center space-x-8 text-amber-500 font-medium"
+      >
+        <a href="#home" class="hover:text-white transition">Home</a>
+        <a href="#about" class="hover:text-white transition">About</a>
+        <a href="#produk" class="hover:text-white transition">Product</a>
+        <a href="#testimoni" class="hover:text-white transition">Testimoni</a>
+        <button
+          onclick="openLogin()"
+          class="bg-amber-500 text-white px-5 py-2 rounded-full relative z-50"
+        >
+          Login
+        </button>
+      </div>
+
+      <!-- BUTTON GROUP (Cart & Hamburger) -->
+      <div class="flex items-center gap-3">
+        <button
+          onclick="toggleCart()"
+          class="bg-amber-500 text-white px-4 py-2 rounded-full flex items-center gap-2 hover:bg-amber-600 transition shadow-lg"
+        >
+          🛒 <span class="hidden sm:inline">Cart</span> (<span id="cart-count"
+            >0</span
+          >)
+        </button>
+
+        <!-- Hamburger Button (Mobile Only) -->
+        <button
+          onclick="toggleMobileMenu()"
+          class="md:hidden text-amber-500 text-3xl focus:outline-none"
+        >
+          ☰
+        </button>
+      </div>
+    </nav>
+
+    <!-- MENU MOBILE (Drawer) -->
+    <div
+      id="mobile-menu"
+      class="fixed inset-y-0 right-0 w-64 bg-neutral-900 shadow-2xl transform translate-x-full transition-transform duration-300 z-[60] flex flex-col p-8 space-y-6 md:hidden"
+    >
+      <button onclick="toggleMobileMenu()" class="text-white text-2xl self-end">
+        ✕
+      </button>
+      <a
+        href="#home"
+        onclick="toggleMobileMenu()"
+        class="text-amber-500 text-lg hover:text-white"
+        >Home</a
+      >
+      <a
+        href="#about"
+        onclick="toggleMobileMenu()"
+        class="text-amber-500 text-lg hover:text-white"
+        >About</a
+      >
+      <a
+        href="#produk"
+        onclick="toggleMobileMenu()"
+        class="text-amber-500 text-lg hover:text-white"
+        >Product</a
+      >
+      <a
+        href="#testimoni"
+        onclick="toggleMobileMenu()"
+        class="text-amber-500 text-lg hover:text-white"
+        >Testimoni</a
+      >
+      <button
+        onclick="
+          openLogin();
+          toggleMobileMenu();
+        "
+        class="w-full bg-amber-500 text-white py-3 rounded-xl font-bold"
+      >
+        Login Admin
+      </button>
+    </div>
+
+    <!-- Overlay untuk Mobile Menu -->
+    <div
+      id="menu-overlay"
+      onclick="toggleMobileMenu()"
+      class="fixed inset-0 bg-black/50 hidden z-[55] md:hidden"
+    ></div>
+
+    <!-- HERO -->
+    <section
+      id="home"
+      class="h-screen flex items-center justify-center text-center px-6 bg-[url('assets/img/herosection.jpg')] bg-cover bg-center"
+    >
+      <div class="bg-black/50 p-10 rounded-2xl text-white max-w-xl">
+        <h1 class="text-4xl md:text-5xl font-bold mb-4">
+          Fresh Bakery Everyday
+        </h1>
+        <p class="mb-6">Roti & cake premium, fresh langsung dari oven 🍞</p>
+        <a
+          href="#produk"
+          class="bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg"
+        >
+          Lihat Menu
+        </a>
+      </div>
+    </section>
+
+    <!-- login -->
+    <div
+      id="login"
+      onclick="closeLogin()"
+      class="fixed inset-0 bg-black/50 hidden z-40"
+    ></div>
+    <!-- MODAL LOGIN -->
+    <div
+      id="loginModal"
+      class="fixed inset-0 flex items-center justify-center hidden z-50"
+    >
+      <div class="bg-white w-[90%] max-w-md p-6 rounded-2xl shadow-xl relative">
+        <!-- CLOSE -->
+        <button
+          onclick="closeLogin()"
+          class="absolute top-3 right-3 text-gray-500"
+        >
+          ✖
+        </button>
+
+        <h2 class="text-2xl font-bold mb-4 text-center">Login Admin</h2>
+
+        <input
+          id="email"
+          type="text"
+          placeholder="Email"
+          class="w-full mb-3 p-3 border rounded"
+        />
+        <input
+          id="password"
+          type="password"
+          placeholder="Password"
+          class="w-full mb-4 p-3 border rounded"
+        />
+
+        <button
+          onclick="login()"
+          class="w-full bg-amber-500 text-white py-2 rounded"
+        >
+          Masuk
+        </button>
+      </div>
+    </div>
+
+    <!-- ABOUT -->
+    <section
+      id="about"
+      class="py-24 px-6 bg-neutral-600 text-white overflow-hidden"
+    >
+      <div class="max-w-6xl mx-auto">
+        <!-- GRID UTAMA -->
+        <div class="grid md:grid-cols-2 gap-16 items-center">
+          <!-- SISI KIRI: GAMBAR -->
+          <div class="relative group">
+            <!-- Efek Glow di belakang gambar agar tidak mati di background hitam -->
+            <div
+              class="absolute -inset-1 bg-amber-500/20 rounded-2xl blur-xl opacity-50"
+            ></div>
+
+            <img
+              src="assets/img/abon.jpg"
+              class="relative rounded-2xl shadow-2xl border border-neutral-700 w-full h-[300px] md:h-[400px] object-cover object-center transition-transform duration-500 hover:scale-[1.02]"
+              alt="Tentang Jaza Bakery"
+            />
+          </div>
+
+          <!-- SISI KANAN: TEKS -->
+          <div class="space-y-8">
+            <div>
+              <h2 class="text-4xl font-bold mb-4 text-amber-500">About Us</h2>
+              <p class="text-lg leading-relaxed text-neutral-300">
+                Sweet Bakery menghadirkan roti dan cake berkualitas premium
+                dengan bahan terbaik tanpa pengawet. Kami percaya setiap gigitan
+                harus memberikan kebahagiaan ✨
+              </p>
+            </div>
+
+            <div>
+              <h2 class="text-2xl font-semibold mb-6 text-amber-500">
+                Why Us?
+              </h2>
+              <!-- KOTAK WHY US: Dibuat gelap agar tidak menusuk mata -->
+              <div class="grid grid-cols-2 gap-4">
+                <div
+                  class="bg-neutral-900 p-5 rounded-2xl border border-neutral-700 hover:border-amber-500 transition"
+                >
+                  <span class="text-3xl block mb-2">🍞</span>
+                  <p class="text-sm font-medium">Fresh setiap hari</p>
+                </div>
+
+                <div
+                  class="bg-neutral-900 p-5 rounded-2xl border border-neutral-700 hover:border-amber-500 transition"
+                >
+                  <span class="text-3xl block mb-2">🌿</span>
+                  <p class="text-sm font-medium">Tanpa pengawet</p>
+                </div>
+
+                <div
+                  class="bg-neutral-900 p-5 rounded-2xl border border-neutral-700 hover:border-amber-500 transition"
+                >
+                  <span class="text-3xl block mb-2">🎂</span>
+                  <p class="text-sm font-medium">Custom cake</p>
+                </div>
+
+                <div
+                  class="bg-neutral-900 p-5 rounded-2xl border border-neutral-700 hover:border-amber-500 transition"
+                >
+                  <span class="text-3xl block mb-2">💰</span>
+                  <p class="text-sm font-medium">Harga terjangkau</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRODUK -->
+    <section id="produk" class="py-24 px-6 bg-white">
+      <div class="max-w-6xl mx-auto">
+        <h2 class="text-4xl font-bold text-center mb-12 text-amber-500">
+          Our Products
+        </h2>
+
+        <!-- Tempat Produk Muncul (Container) -->
+        <div
+          id="product-container"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8"
+        >
+          <!-- JavaScript akan otomatis mengisi ini -->
+          <p class="text-center col-span-full text-gray-500">
+            Memuat produk...
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Floating Contact Button -->
+    <div class="fixed bottom-6 right-6 z-[999] flex flex-col gap-4">
+      <!-- Tombol WhatsApp (Contoh) -->
+      <a
+        href="https://wa.me/6288232839006"
+        target="_blank"
+        class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+      >
+        <svg
+          xmlns="http://w3.org"
+          class="h-6 w-6"
+          fill="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.413 0 6.556-5.332 11.891-11.891 11.891-2.012 0-3.987-.511-5.733-1.482l-6.263 1.643zm6.311-3.535l.351.21c1.511.9 3.298 1.375 5.132 1.375 5.394 0 9.782-4.387 9.782-9.782 0-2.618-1.02-5.08-2.871-6.932-1.851-1.852-4.311-2.872-6.93-2.872-5.394 0-9.782 4.388-9.782 9.782 0 2.115.672 4.175 1.943 5.922l.213.295-.989 3.611 3.702-.971z"
+          />
+        </svg>
+        <!-- Tooltip Label (Muncul saat di-hover) -->
+        <span
+          class="absolute left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+          >Chat WhatsApp</span
+        >
+      </a>
+
+      <!-- Tombol Instagram -->
+      <a
+        href="https://instagram.com/dewiyuniz"
+        target="_blank"
+        class="bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 hover:opacity-90 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+      >
+        <svg
+          xmlns="http://w3.org"
+          class="h-6 w-6"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+        </svg>
+        <span
+          class="absolute left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
+          >Follow IG</span
+        >
+      </a>
+    </div>
+
+    <!-- TESTIMONI SECTION -->
+    <section id="testimoni" class="py-24 px-5 bg-neutral-900 text-white">
+      <div class="max-w-[1100px] mx-auto">
+        <h2
+          class="text-3xl md:text-4xl font-bold text-center text-amber-500 mb-16"
+        >
+          What Do Our Customers Say?
+        </h2>
+
+        <!-- Wadah Otomatis Testimoni -->
+        <div
+          id="testimoni-container"
+          class="flex flex-wrap justify-center gap-8"
+        >
+          <p class="text-neutral-500">Memuat testimoni...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- FORM TESTIMONI -->
+    <section
+      class="py-24 flex items-center justify-center px-5 bg-neutral-900 border-t border-neutral-800"
+    >
+      <div class="w-full max-w-[500px]">
+        <div
+          class="bg-neutral-800 p-8 rounded-3xl shadow-2xl border border-neutral-700 relative overflow-hidden"
+        >
+          <h3 class="text-2xl font-bold text-center text-amber-500 mb-8">
+            Send Your Testimoni ✍️
+          </h3>
+
+          <!-- Perubahan: Hilangkan 'action' dan 'method', tambahkan id 'formTestimoni' -->
+          <form id="formTestimoni" class="space-y-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="space-y-1">
+                <label class="text-xs font-semibold text-neutral-400"
+                  >Nama Lengkap</label
+                >
+                <input
+                  type="text"
+                  id="nama_testi"
+                  required
+                  placeholder="Nama Anda"
+                  class="w-full p-3 bg-neutral-900 border border-neutral-700 text-white rounded-xl outline-none text-sm"
+                />
+              </div>
+              <div class="space-y-1">
+                <label class="text-xs font-semibold text-neutral-400"
+                  >Status</label
+                >
+                <select
+                  id="status_testi"
+                  required
+                  class="w-full p-3 bg-neutral-900 border border-neutral-700 text-white rounded-xl outline-none text-sm"
+                >
+                  <option value="Pelanggan Setia">Pelanggan Setia</option>
+                  <option value="Pembeli Pertama">Pembeli Pertama</option>
+                </select>
+              </div>
+            </div>
+            <div class="space-y-1">
+              <label class="text-xs font-semibold text-neutral-400"
+                >Pesan Testimoni</label
+              >
+              <textarea
+                id="komentar_testi"
+                required
+                class="w-full p-3 bg-neutral-900 border border-neutral-700 text-white rounded-xl outline-none text-sm"
+                rows="3"
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-xl font-bold transition"
+            >
+              Kirim Testimoni
+            </button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER TRANSPARAN CLEAN GHOST -->
+    <footer
+      class="bg-white/10 backdrop-blur-lg border-t border-white/20 py-12 px-8"
+    >
+      <div
+        class="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-center gap-8"
+      >
+        <!-- Bagian Kiri: Branding (Dikasih sedikit jarak antar huruf biar mewah) -->
+        <div class="text-center md:text-left">
+          <h3 class="text-xl font-extrabold text-gray-800 tracking-tight">
+            Jaza Bakery 🥐
+          </h3>
+          <p class="text-[10px] uppercase tracking-widest text-gray-500 mt-1">
+            Baking code • Serving happiness
+          </p>
+        </div>
+
+        <!-- Bagian Tengah: Kontak (Pakai icon yang lebih rapi) -->
+        <div
+          class="flex flex-wrap justify-center gap-8 text-sm text-gray-600 font-medium"
+        >
+          <div
+            class="flex items-center gap-2 hover:text-amber-600 transition-colors cursor-default"
+          >
+            <span>📍</span> Semarang
+          </div>
+          <div
+            class="flex items-center gap-2 hover:text-amber-600 transition-colors cursor-default"
+          >
+            <span>📱</span> @Jazabakery.id
+          </div>
+          <div
+            class="flex items-center gap-2 hover:text-amber-600 transition-colors cursor-default"
+          >
+            <span>⏰</span> 07:00 - 21:00
+          </div>
+        </div>
+
+        <!-- Bagian Kanan: Copyright -->
+        <div class="text-[11px] text-gray-400 font-light">
+          &copy; 2026 Jaza Bakery x
+          <span class="hover:text-amber-500 transition-colors cursor-pointer"
+            >@fdweb.id</span
+          >
+        </div>
+      </div>
+    </footer>
+
+    <div
+      id="overlay"
+      onclick="toggleCart()"
+      class="fixed inset-0 bg-black/40 hidden"
+    ></div>
+    <!-- CART -->
+    <div
+      id="cart"
+      class="fixed right-0 top-0 w-80 h-screen bg-white/20 backdrop-blur-xl border-l border-white/20 shadow-2xl p-6 pt-24 transform translate-x-full transition-transform duration-500 z-50"
+    >
+      <h2 class="text-2xl font-bold text-grey-800 text-white mb-5">
+        Keranjang Roti 🥐
+      </h2>
+      <ul id="cart-items" class="space-y-2"></ul>
+
+      <p class="mt-4 font-bold text-white">
+        Total: Rp <span id="total">0</span>
+      </p>
+
+      <button
+        onclick="checkout()"
+        class="mt-4 w-full bg-green-500 text-white py-2 rounded"
+      >
+        Checkout WA
+      </button>
+
+      <button
+        onclick="toggleCart()"
+        class="mt-2 w-full bg-gray-300 py-2 rounded"
+      >
+        Tutup
+      </button>
+    </div>
+    <!-- Library Supabase -->
+    <script src="https://jsdelivr.net"></script>
+    <!-- File Logika Kita -->
+    <script src="script.js"></script>
+  </body>
+</html>

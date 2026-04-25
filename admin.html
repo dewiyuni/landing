@@ -1,0 +1,374 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Produk - Bakery</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Menghilangkan panah atas-bawah di Chrome, Safari, Edge, Opera */
+      input::-webkit-outer-spin-button,
+      input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      /* Menghilangkan panah di Firefox */
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
+  </head>
+
+  <body style="background-color: #f4f7f6">
+    <div class="flex flex-col md:flex-row min-h-screen">
+      <!-- SIDEBAR (Responsive: Hidden on Mobile, Shown on MD+) -->
+      <aside
+        id="sidebar"
+        class="fixed inset-y-0 left-0 z-50 w-64 bg-amber-500 text-white p-6 shadow-lg transform -translate-x-full transition-transform duration-300 md:relative md:translate-x-0"
+      >
+        <div class="flex justify-between items-center mb-8">
+          <h1 class="text-2xl font-bold">🍰 Admin Bakery</h1>
+          <!-- Close button mobile -->
+          <button
+            onclick="toggleSidebar()"
+            class="md:hidden text-white text-2xl"
+          >
+            ✕
+          </button>
+        </div>
+        <nav class="space-y-4">
+          <a href="#" class="block bg-amber-600 p-3 rounded-lg font-medium"
+            >Manajemen Produk</a
+          >
+        </nav>
+      </aside>
+
+      <!-- MAIN CONTENT -->
+      <main class="flex-1 p-4 md:p-8 overflow-y-auto">
+        <!-- HEADER -->
+        <div
+          class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-8"
+        >
+          <div class="flex items-center gap-3">
+            <!-- Hamburger button for mobile -->
+            <button
+              onclick="toggleSidebar()"
+              class="md:hidden bg-amber-500 text-white p-2 rounded"
+            >
+              ☰
+            </button>
+            <h2 class="text-2xl md:text-3xl font-bold text-gray-800">
+              Daftar Produk
+            </h2>
+          </div>
+          <div class="flex items-center gap-3">
+            <a
+              href="../"
+              class="bg-amber-500 text-white px-5 py-2 rounded-full relative z-50"
+              >← Home</a
+            >
+
+            <button
+              onclick="openModal()"
+              class="w-full sm:w-auto bg-amber-500 hover:bg-amber-600 text-white px-6 py-2 rounded-full shadow transition"
+            >
+              ➕ <span class="hidden sm:inline">Tambah Produk</span
+              ><span class="sm:hidden">Produk</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- TABLE WRAPPER (Scroll horizontal di layar kecil) -->
+        <div class="bg-white rounded-xl shadow-md overflow-x-auto">
+          <table class="w-full text-left border-collapse min-w-[600px]">
+            <thead class="bg-gray-100/80 border-b-2 border-gray-200">
+              <tr>
+                <th
+                  class="p-4 font-bold text-gray-700 text-xs uppercase tracking-wider"
+                >
+                  Foto
+                </th>
+                <th
+                  class="p-4 font-bold text-gray-700 text-xs uppercase tracking-wider"
+                >
+                  Nama Produk
+                </th>
+                <th
+                  class="p-4 font-bold text-gray-700 text-xs uppercase tracking-wider"
+                >
+                  Stok
+                </th>
+                <th
+                  class="p-4 font-bold text-gray-700 text-xs uppercase tracking-wider"
+                >
+                  Harga
+                </th>
+                <th
+                  class="p-4 font-bold text-gray-700 text-xs uppercase tracking-wider"
+                >
+                  Keterangan
+                </th>
+                <th
+                  class="p-4 font-bold text-gray-700 text-xs uppercase tracking-wider text-center"
+                >
+                  Aksi
+                </th>
+              </tr>
+            </thead>
+
+            <tbody id="product-list" class="divide-y text-sm">
+              <!-- Data akan muncul di sini -->
+            </tbody>
+          </table>
+        </div>
+      </main>
+    </div>
+
+    <!-- Overlay untuk mobile saat sidebar terbuka -->
+    <div
+      id="overlay"
+      onclick="toggleSidebar()"
+      class="fixed inset-0 bg-black opacity-50 hidden z-40"
+    ></div>
+
+    <script>
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+        const overlay = document.getElementById("overlay");
+        sidebar.classList.toggle("-translate-x-full");
+        overlay.classList.toggle("hidden");
+      }
+    </script>
+
+    <!-- MODAL -->
+    <div
+      id="modal"
+      class="fixed inset-0 bg-black/60 hidden flex items-center justify-center backdrop-blur-sm"
+    >
+      <div class="bg-white p-8 rounded-2xl w-96 shadow-2xl">
+        <h2 id="modal-title" class="text-xl font-bold mb-6 text-gray-800">
+          Tambah Produk
+        </h2>
+
+        <div class="space-y-4">
+          <input
+            id="name"
+            type="text"
+            placeholder="Nama Produk"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+          />
+          <!-- Input Stok -->
+          <input
+            id="stock"
+            type="number"
+            min="0"
+            placeholder="Jumlah Stok"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+            oninput="this.value = Math.abs(this.value)"
+          />
+          <!-- Tambahan: Otomatis ubah negatif jadi positif -->
+
+          <!-- Input Harga -->
+          <input
+            id="price"
+            type="number"
+            min="0"
+            placeholder="Harga (Rp)"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none"
+            oninput="if (this.value < 0) this.value = 0;"
+          />
+          <textarea
+            id="description"
+            placeholder="Keterangan singkat"
+            class="w-full p-3 border rounded-lg focus:ring-2 focus:ring-amber-500 outline-none h-24"
+          ></textarea>
+
+          <div class="mb-3">
+            <label class="block text-xs font-medium text-gray-500 mb-2"
+              >Foto Produk:</label
+            >
+
+            <!-- Bungkus dengan Flex agar bersebelahan -->
+            <div class="flex items-center gap-4">
+              <!-- Preview foto lama -->
+              <div class="shrink-0">
+                <img
+                  id="preview-old"
+                  src=""
+                  class="w-20 h-20 object-cover rounded-lg border hidden shadow-sm"
+                />
+              </div>
+
+              <!-- Input file -->
+              <div class="flex-1">
+                <input
+                  id="image"
+                  type="file"
+                  accept="image/*"
+                  class="w-full text-xs text-gray-500 file:mr-3 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-amber-50 file:text-amber-700 hover:file:bg-amber-100 cursor-pointer"
+                />
+                <p class="text-[10px] text-gray-400 mt-1">
+                  *Pilih foto baru jika ingin mengganti
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex gap-3 mt-8">
+          <button
+            onclick="saveProduct()"
+            class="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-lg font-bold transition"
+          >
+            Simpan
+          </button>
+          <button
+            onclick="closeModal()"
+            class="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-700 py-3 rounded-lg font-bold transition"
+          >
+            Batal
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      let editId = "";
+
+      // 1. Fungsi Memuat Data dari Database
+      function loadProducts() {
+        fetch("get_product.php")
+          .then((res) => res.json())
+          .then((data) => {
+            const list = document.getElementById("product-list");
+            list.innerHTML = "";
+
+            data.forEach((p) => {
+              // Ganti bagian list.innerHTML di fungsi loadProducts menjadi ini:
+              list.innerHTML += `
+<tr class="hover:bg-amber-50/50 transition border-b border-gray-100">
+    <td class="p-4 py-5 align-middle">
+        <img src="${p.image}" class="w-16 h-16 object-cover rounded-lg shadow-sm border">
+    </td>
+    <td class="p-4 align-middle font-semibold text-gray-700">${p.name}</td>
+    <td class="p-4 align-middle text-center text-gray-600">${p.stock}</td>
+    <td class="p-4 align-middle text-center font-bold text-amber-600">
+        Rp ${Number(p.price).toLocaleString()}
+    </td>
+    <td class="p-4 align-middle text-gray-500 text-sm max-w-[200px] leading-relaxed">
+        ${p.description}
+    </td>
+    <td class="p-4 align-middle text-center">
+        <div class="flex justify-center gap-2">
+            <button onclick="editProduct(...)" class="p-2 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-600 hover:text-white transition">✏️</button>
+            <button onclick="deleteProduct(...)" class="p-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-600 hover:text-white transition">❌</button>
+        </div>
+    </td>
+</tr>`;
+            });
+          })
+          .catch((err) => console.error("Gagal memuat data:", err));
+      }
+
+      // 2. Buka Modal (Reset jika tambah, Isi jika edit)
+      function openModal(isEdit = false) {
+        document.getElementById("modal").classList.remove("hidden");
+        document.getElementById("modal-title").innerText = isEdit
+          ? "Edit Produk"
+          : "Tambah Produk";
+
+        // Reset input file agar tidak nyangkut nama file sebelumnya
+        document.getElementById("image").value = "";
+
+        if (!isEdit) {
+          editId = "";
+          document.getElementById("name").value = "";
+          document.getElementById("stock").value = "";
+          document.getElementById("price").value = "";
+          document.getElementById("description").value = "";
+          document.getElementById("preview-old").classList.add("hidden");
+          document.getElementById("preview-old").src = "";
+        }
+      }
+
+      // 3. Fungsi Edit (Mengisi form dengan data lama)
+      function editProduct(id, name, stock, price, desc, imageUrl) {
+        openModal(true);
+        editId = id;
+        document.getElementById("name").value = name;
+        document.getElementById("stock").value = stock;
+        document.getElementById("price").value = price;
+        document.getElementById("description").value = desc;
+
+        const preview = document.getElementById("preview-old");
+        if (imageUrl && imageUrl !== "") {
+          preview.src = imageUrl;
+          preview.classList.remove("hidden");
+        } else {
+          preview.classList.add("hidden");
+        }
+      }
+
+      function closeModal() {
+        document.getElementById("modal").classList.add("hidden");
+      }
+
+      // 4. Fungsi Simpan (Tambah / Update)
+      function saveProduct() {
+        const name = document.getElementById("name").value;
+        const stock = document.getElementById("stock").value;
+        const price = document.getElementById("price").value;
+        const imageInput = document.getElementById("image");
+
+        if (!name || !stock || !price)
+          return alert("Harap isi Nama, Stok, dan Harga!");
+
+        const formData = new FormData();
+        formData.append("id", editId);
+        formData.append("name", name);
+        formData.append("stock", stock);
+        formData.append("price", price);
+        formData.append(
+          "description",
+          document.getElementById("description").value,
+        );
+
+        if (imageInput.files.length > 0) {
+          formData.append("image", imageInput.files[0]);
+        }
+
+        fetch("save_product.php", {
+          method: "POST",
+          body: formData,
+        })
+          .then((res) => res.text())
+          .then((data) => {
+            if (data.trim() === "success") {
+              closeModal();
+              loadProducts();
+            } else {
+              alert("Gagal menyimpan: " + data);
+            }
+          })
+          .catch((err) => alert("Terjadi kesalahan koneksi!"));
+      }
+
+      // 5. Fungsi Hapus
+      function deleteProduct(id) {
+        if (!confirm("Hapus produk ini?")) return;
+
+        fetch("delete_product.php", {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: `id=${id}`,
+        })
+          .then(() => loadProducts())
+          .catch((err) => alert("Gagal menghapus!"));
+      }
+
+      // Jalankan saat pertama kali dibuka
+      loadProducts();
+    </script>
+  </body>
+</html>
