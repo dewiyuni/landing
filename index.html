@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>BBakery</title>
+    <title>JazaBakery</title>
     <script src="https://cdn.tailwindcss.com"></script>
 
     <!-- Font -->
@@ -15,6 +15,20 @@
     <style>
       body {
         font-family: "Poppins", sans-serif;
+      }
+      /* Taruh di bagian <style> index.html */
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: rgba(255, 255, 255, 0.05);
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 10px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb:hover {
+        background: rgba(245, 158, 11, 0.5); /* Warna Amber saat di-hover */
       }
     </style>
   </head>
@@ -122,12 +136,12 @@
         <h1 class="text-4xl md:text-5xl font-bold mb-4">
           Fresh Bakery Everyday
         </h1>
-        <p class="mb-6">Roti & cake premium, fresh langsung dari oven 🍞</p>
+        <p class="mb-6">Roti & Kue premium, fresh langsung dari oven 🍞</p>
         <a
           href="#produk"
           class="bg-amber-500 hover:bg-amber-600 px-6 py-3 rounded-lg"
         >
-          Lihat Menu
+          Explore the Flavors
         </a>
       </div>
     </section>
@@ -203,9 +217,9 @@
             <div>
               <h2 class="text-4xl font-bold mb-4 text-amber-500">About Us</h2>
               <p class="text-lg leading-relaxed text-neutral-300">
-                Sweet Bakery menghadirkan roti dan cake berkualitas premium
-                dengan bahan terbaik tanpa pengawet. Kami percaya setiap gigitan
-                harus memberikan kebahagiaan ✨
+                Jaza Bakery menghadirkan roti dan kue berkualitas premium dengan
+                bahan terbaik tanpa pengawet. Kami percaya setiap gigitan harus
+                memberikan kebahagiaan ✨
               </p>
             </div>
 
@@ -269,56 +283,6 @@
       </div>
     </section>
 
-    <!-- Floating Contact Button -->
-    <div class="fixed bottom-6 right-6 z-[999] flex flex-col gap-4">
-      <!-- Tombol WhatsApp (Contoh) -->
-      <a
-        href="https://wa.me/6288232839006"
-        target="_blank"
-        class="bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 flex items-center justify-center group"
-      >
-        <svg
-          xmlns="http://w3.org"
-          class="h-6 w-6"
-          fill="currentColor"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.413 0 6.556-5.332 11.891-11.891 11.891-2.012 0-3.987-.511-5.733-1.482l-6.263 1.643zm6.311-3.535l.351.21c1.511.9 3.298 1.375 5.132 1.375 5.394 0 9.782-4.387 9.782-9.782 0-2.618-1.02-5.08-2.871-6.932-1.851-1.852-4.311-2.872-6.93-2.872-5.394 0-9.782 4.388-9.782 9.782 0 2.115.672 4.175 1.943 5.922l.213.295-.989 3.611 3.702-.971z"
-          />
-        </svg>
-        <!-- Tooltip Label (Muncul saat di-hover) -->
-        <span
-          class="absolute left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-          >Chat WhatsApp</span
-        >
-      </a>
-
-      <!-- Tombol Instagram -->
-      <a
-        href="https://instagram.com/dewiyuniz"
-        target="_blank"
-        class="bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 hover:opacity-90 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 flex items-center justify-center group"
-      >
-        <svg
-          xmlns="http://w3.org"
-          class="h-6 w-6"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-          stroke-width="2"
-        >
-          <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-          <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
-          <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-        </svg>
-        <span
-          class="absolute left-16 bg-gray-800 text-white text-xs px-2 py-1 rounded opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap"
-          >Follow IG</span
-        >
-      </a>
-    </div>
-
     <!-- TESTIMONI SECTION -->
     <section id="testimoni" class="py-24 px-5 bg-neutral-900 text-white">
       <div class="max-w-[1100px] mx-auto">
@@ -328,11 +292,12 @@
           What Do Our Customers Say?
         </h2>
 
-        <!-- Wadah Otomatis Testimoni -->
+        <!-- Wadah ini akan diisi otomatis oleh fetchTestimonials() -->
         <div
           id="testimoni-container"
           class="flex flex-wrap justify-center gap-8"
         >
+          <!-- Loading state (opsional) -->
           <p class="text-neutral-500">Memuat testimoni...</p>
         </div>
       </div>
@@ -350,11 +315,11 @@
             Send Your Testimoni ✍️
           </h3>
 
-          <!-- Perubahan: Hilangkan 'action' dan 'method', tambahkan id 'formTestimoni' -->
+          <!-- Update Form: Tambahkan ID dan hapus action/method -->
           <form id="formTestimoni" class="space-y-5">
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="space-y-1">
-                <label class="text-xs font-semibold text-neutral-400"
+                <label class="text-xs font-semibold text-neutral-400 ml-1"
                   >Nama Lengkap</label
                 >
                 <input
@@ -362,39 +327,58 @@
                   id="nama_testi"
                   required
                   placeholder="Nama Anda"
-                  class="w-full p-3 bg-neutral-900 border border-neutral-700 text-white rounded-xl outline-none text-sm"
+                  class="w-full p-3 bg-neutral-900 border border-neutral-700 text-white rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm"
                 />
               </div>
               <div class="space-y-1">
-                <label class="text-xs font-semibold text-neutral-400"
+                <label class="text-xs font-semibold text-neutral-400 ml-1"
                   >Status</label
                 >
                 <select
                   id="status_testi"
                   required
-                  class="w-full p-3 bg-neutral-900 border border-neutral-700 text-white rounded-xl outline-none text-sm"
+                  class="w-full p-3 bg-neutral-900 border border-neutral-700 text-white rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm"
                 >
                   <option value="Pelanggan Setia">Pelanggan Setia</option>
                   <option value="Pembeli Pertama">Pembeli Pertama</option>
+                  <option value="Pecinta Roti">Pecinta Roti</option>
                 </select>
               </div>
             </div>
+
             <div class="space-y-1">
-              <label class="text-xs font-semibold text-neutral-400"
-                >Pesan Testimoni</label
+              <label class="text-xs font-semibold text-neutral-400 ml-1"
+                >Testimoni</label
               >
               <textarea
                 id="komentar_testi"
-                required
-                class="w-full p-3 bg-neutral-900 border border-neutral-700 text-white rounded-xl outline-none text-sm"
                 rows="3"
+                required
+                placeholder="Bagaimana rasa roti kami?"
+                class="w-full p-3 bg-neutral-900 border border-neutral-700 text-white rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm resize-none"
               ></textarea>
             </div>
+
+            <div class="space-y-1">
+              <label class="text-xs font-semibold text-neutral-400 ml-1"
+                >Rating</label
+              >
+              <select
+                id="bintang_testi"
+                required
+                class="w-full p-3 bg-neutral-900 border border-neutral-700 text-white rounded-xl focus:ring-2 focus:ring-amber-500 outline-none text-sm"
+              >
+                <option value="5">⭐⭐⭐⭐⭐ (Sempurna)</option>
+                <option value="4">⭐⭐⭐⭐ (Enak)</option>
+                <option value="3">⭐⭐⭐ (Biasa Saja)</option>
+              </select>
+            </div>
+
             <button
               type="submit"
-              class="w-full bg-amber-500 hover:bg-amber-600 text-white py-3 rounded-xl font-bold transition"
+              class="w-full bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 rounded-2xl transition-all active:scale-95 mt-4"
             >
-              Kirim Testimoni
+              Kirim Testimoni ✨
             </button>
           </form>
         </div>
@@ -449,42 +433,134 @@
       </div>
     </footer>
 
+    <!-- Floating Contact Button -->
+    <div class="fixed bottom-6 right-6 z-[999] group">
+      <!-- Menu Pilihan (Muncul saat tombol utama di-hover) -->
+      <div
+        class="flex flex-col gap-3 mb-3 opacity-0 translate-y-10 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-300 pointer-events-none group-hover:pointer-events-auto"
+      >
+        <!-- Instagram -->
+        <a
+          href="https://instagram.com/dewiyuniz"
+          target="_blank"
+          class="bg-gradient-to-tr from-yellow-400 via-red-500 to-purple-500 text-white p-4 rounded-full shadow-lg hover:scale-110 transition flex items-center justify-center"
+        >
+          <svg
+            xmlns="http://w3.org"
+            class="h-6 w-6"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+            stroke-width="2"
+          >
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+        </a>
+
+        <!-- WhatsApp -->
+        <a
+          href="https://wa.me/6288232839006"
+          target="_blank"
+          class="bg-green-500 text-white p-4 rounded-full shadow-lg hover:scale-110 transition flex items-center justify-center"
+        >
+          <svg
+            xmlns="http://w3.org"
+            class="h-6 w-6"
+            fill="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.588-5.946 0-6.556 5.332-11.891 11.891-11.891 3.181 0 6.167 1.24 8.413 3.488 2.246 2.248 3.484 5.232 3.484 8.413 0 6.556-5.332 11.891-11.891 11.891-2.012 0-3.987-.511-5.733-1.482l-6.263 1.643zm6.311-3.535l.351.21c1.511.9 3.298 1.375 5.132 1.375 5.394 0 9.782-4.387 9.782-9.782 0-2.618-1.02-5.08-2.871-6.932-1.851-1.852-4.311-2.872-6.93-2.872-5.394 0-9.782 4.388-9.782 9.782 0 2.115.672 4.175 1.943 5.922l.213.295-.989 3.611 3.702-.971z"
+            />
+          </svg>
+        </a>
+      </div>
+
+      <!-- Tombol Utama (Pemicu) -->
+      <button
+        class="bg-amber-500 text-white p-4 rounded-full shadow-2xl hover:bg-amber-600 transition-all duration-300 group-hover:rotate-90 flex items-center justify-center"
+      >
+        <span class="text-2xl">💬</span>
+      </button>
+    </div>
+
+    <!-- overlay -->
     <div
       id="overlay"
       onclick="toggleCart()"
       class="fixed inset-0 bg-black/40 hidden"
     ></div>
-    <!-- CART -->
+    <!-- CART SIDEBAR -->
     <div
       id="cart"
-      class="fixed right-0 top-0 w-80 h-screen bg-white/20 backdrop-blur-xl border-l border-white/20 shadow-2xl p-6 pt-24 transform translate-x-full transition-transform duration-500 z-50"
+      class="fixed right-0 top-0 w-80 h-screen bg-white/20 backdrop-blur-xl border-l border-white/20 shadow-2xl p-6 pt-6 transform translate-x-full transition-transform duration-500 z-50 flex flex-col"
     >
-      <h2 class="text-2xl font-bold text-grey-800 text-white mb-5">
-        Keranjang Roti 🥐
-      </h2>
-      <ul id="cart-items" class="space-y-2"></ul>
+      <h2 class="text-2xl font-bold text-white mb-5">Keranjang Roti 🥐</h2>
 
-      <p class="mt-4 font-bold text-white">
-        Total: Rp <span id="total">0</span>
-      </p>
-
-      <button
-        onclick="checkout()"
-        class="mt-4 w-full bg-green-500 text-white py-2 rounded"
+      <!-- LIST ITEM BELANJA -->
+      <ul
+        id="cart-items"
+        class="space-y-3 overflow-y-auto max-h-[80vh] pr-2 custom-scrollbar"
       >
-        Checkout WA
-      </button>
+        <!-- JavaScript akan mengisi ini -->
+      </ul>
+
+      <!-- BAGIAN FORM & CHECKOUT (SELALU MUNCUL JIKA ADA ITEM) -->
+      <div id="checkout-section" class="mt-6 pt-6 border-t border-white/20">
+        <div class="space-y-3 mb-4">
+          <p class="text-xs font-bold text-amber-400 uppercase tracking-widest">
+            Data Pengiriman:
+          </p>
+          <input
+            type="text"
+            id="cust-name"
+            placeholder="Nama Lengkap"
+            class="w-full p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 outline-none text-sm focus:border-amber-500 transition"
+          />
+
+          <textarea
+            id="cust-address"
+            placeholder="Alamat Lengkap (untuk cek ongkir)"
+            rows="2"
+            class="w-full p-3 bg-white/10 border border-white/20 rounded-xl text-white placeholder-white/50 outline-none text-sm resize-none focus:border-amber-500 transition"
+          ></textarea>
+        </div>
+
+        <div
+          class="flex justify-between text-white font-bold mb-4 border-b border-white/10 pb-2"
+        >
+          <span>Total Estimasi:</span>
+          <span class="text-amber-400">Rp <span id="total">0</span></span>
+        </div>
+
+        <button
+          onclick="checkout()"
+          id="btn-checkout"
+          class="w-full bg-green-500 hover:bg-green-600 text-white py-4 rounded-2xl font-bold shadow-lg shadow-green-500/20 transition transform active:scale-95 flex items-center justify-center gap-2"
+        >
+          Tanya Stok via WA 📱
+        </button>
+      </div>
+
+      <!-- PESAN JIKA KOSONG (Hanya muncul jika benar-benar nol) -->
+      <div id="empty-msg" class="hidden text-center py-10">
+        <p class="text-white/40 italic">Belum ada roti yang dipilih...</p>
+      </div>
 
       <button
         onclick="toggleCart()"
-        class="mt-2 w-full bg-gray-300 py-2 rounded"
+        class="mt-4 w-full text-white/30 text-xs hover:text-white transition"
       >
-        Tutup
+        Tutup Panel
       </button>
     </div>
-    <!-- Library Supabase -->
-    <script src="https://jsdelivr.net"></script>
-    <!-- File Logika Kita -->
-    <script src="script.js"></script>
+
+    <!-- Gunakan jalur file yang ada di foldermu sekarang -->
+    <script src="js/supabase.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/login.js"></script>
+    <script src="js/shop.js"></script>
   </body>
 </html>
